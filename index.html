@@ -3,10 +3,12 @@
 	<head>
 		<!-- CSS -->
 		<link rel="stylesheet" href="CSS/bootstrap.min.css" />
+		<link rel="stylesheet" href="CSS/global.css" />
 
 		<!-- Scripts -->
 		<script src="JS/vendor/angular.min.js"></script>
 		<script src="JS/vendor/angular-route.min.js"></script>
+		<script src="JS/vendor/angular-animate.min.js"></script>
 		<script src="JS/script.js"></script>
 	</head>
 	<body ng-controller="mainController">
@@ -19,7 +21,7 @@
 					</div>
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+						<li><a href="#/"><i class="fa fa-home"></i>Home</a></li>
 						<li><a href="#about"><i class="fa fa-shield"></i>About</a></li>
 						<li><a href="#contact"><i class="fa fa-comment"></i>Contact</a></li>
 					</ul>
@@ -31,7 +33,7 @@
 		<!-- content area -->
 		<div id="main">
 			<!-- content injected here -->
-			<div ng-view></div>
+			<div class="page {{pageClass}}" ng-view></div>
 		</div>
 
 	</body>
