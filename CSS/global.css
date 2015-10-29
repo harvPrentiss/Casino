@@ -1,0 +1,44 @@
+.gameMenuButton {
+   display:block;
+   margin: 0 auto;
+   width: 50%;
+    border-top: 1px solid #f50000;
+   background: #d40000;
+   background: -webkit-gradient(linear, left top, left bottom, from(#940000), to(#d40000));
+   background: -webkit-linear-gradient(top, #940000, #d40000);
+   background: -moz-linear-gradient(top, #940000, #d40000);
+   background: -ms-linear-gradient(top, #940000, #d40000);
+   background: -o-linear-gradient(top, #940000, #d40000);
+   padding: 19.5px 39px;
+   -webkit-border-radius: 28px;
+   -moz-border-radius: 28px;
+   border-radius: 28px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border-top-color: #782828;
+   background: #782828;
+   color: #ccc;
+   }
+.button:active {
+   border-top-color: #5c1b1b;
+   background: #5c1b1b;
+   }
+
+
+a:hover{
+   color: none;
+}
+
+.cardTable{
+   background-color: #008000;
+   padding: 5%;
+}

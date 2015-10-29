@@ -24,6 +24,12 @@ casinoApp.config(function($routeProvider){
 		.when('/contact',{
 			templateUrl: 'views/contact.html',
 			controller: 'contactController'
+		})
+
+		// route for blackjack page
+		.when('/blackjack',{
+			templateUrl: 'views/blackjack.html',
+			controller: 'blackjackController'
 		});
 });
 
@@ -32,6 +38,17 @@ casinoApp.controller('mainController', function($scope){
 
 	$scope.message = 'Welcome to the casino';
 	$scope.pageClass = 'page-home';
+	$scope.games = [
+		{ 
+			name:"Blackjack",
+			link:"blackjack"
+		},
+		{
+			name:"Texas Hold'em",
+			link:"texasHoldem"
+		}
+
+	];
 
 });
 
@@ -48,5 +65,13 @@ casinoApp.controller('contactController', function($scope){
 
 	$scope.message = 'Talk to me';
 	$scope.pageClass = 'page-contact';
+
+});
+
+//Blackjack Controller
+casinoApp.controller('blackjackController', function($scope){
+
+	$scope.message = 'Talk to me';
+	$scope.pageClass = 'page-blackjack';
 
 });

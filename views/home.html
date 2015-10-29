@@ -1,5 +1,8 @@
 <!-- home.html -->
 <div class="jumbotron text-center">
-	<h1>Home Page</h1>
-	<p>{{message}}</p>
+	<h1>Pick a game to play</h1>
+	<div ng-repeat="game in games">
+		<a class="gameMenuButton" href="#{{game.link}}">{{game.name}}</a>
+		<br>
+	</div>
 </div>
