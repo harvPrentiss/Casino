@@ -1,3 +1,13 @@
+<h1 class='center'>Blackjack</h1>
 <div class="container-fluid cardTable">
-	<h1>Blackjack</h1>
+	<ul id='dealerHand' class='list-inline'>
+		<li ng-repeat='card in dealerCards' >
+			<img ng-src='media/cards/{{card.rank.label + card.suit.abbr}}.png' />
+		</li>
+	</ul>
+	<ul id='playerHand' class='list-inline'>
+		<li ng-repeat='card in playerCards'>
+			<img ng-src='media/cards/{{card.rank.label + card.suit.abbr}}.png' />
+		</li>
+	</ul>
 </div>
