@@ -1,13 +1,38 @@
 <h1 class='center'>Blackjack</h1>
 <div class="container-fluid cardTable">
-	<ul id='dealerHand' class='list-inline'>
-		<li ng-repeat='card in dealerCards' >
-			<img ng-src='media/cards/{{card.rank.label + card.suit.abbr}}.png' />
-		</li>
-	</ul>
-	<ul id='playerHand' class='list-inline'>
-		<li ng-repeat='card in playerCards'>
-			<img ng-src='media/cards/{{card.rank.label + card.suit.abbr}}.png' />
-		</li>
-	</ul>
+	<div id="activeBoard" ng-hide="gameOver">
+		<h3>Dealer Hand: {{dealerHandTotal()}}</h3>
+		<ul id='dealerHand' class='list-inline'>
+			<li ng-repeat='card in dealerCards' >
+				<img ng-src='media/cards/{{card.rank.label + card.suit.abbr}}.png' />
+			</li>
+		</ul>
+		<br>
+		<br>
+		<h3>{{result}}</h3>
+		<br>
+		<br>
+		<ul id='playerHand' class='list-inline'>
+			<li ng-repeat='card in playerCards'>
+				<img ng-src='media/cards/{{card.rank.label + card.suit.abbr}}.png' />
+			</li>
+		</ul>
+		<h3>Your Hand: {{playerHandTotal()}}</h3>
+		<div id="playerControls">
+			<button id="hitBtn" class="playerControlBtn" ng-click="hit()" ng-hide="roundOver">Hit</button>
+			<button id="stayBtn" class="playerControlBtn" ng-click="stay()" ng-hide="roundOver">Stay</button>
+			<button id="dealBtn" class="playerControlBtn" ng-click="bet()" ng-show="roundOver">Deal</button>
+		</div>
+		<br>
+		<div id="bettingControls">
+			<button id="betBtn" class="playerControlBtn" ng-click="bet()" ng-show="roundOver">Bet</button>
+			<input type="text" ng-model="playerBet" ng-show="roundOver"/>
+		</div>
+		<br>
+		<h4>Bank: {{playerMoney}}</h4>
+	</div>
+	<div id="gameOverBoard" ng-show="gameOver">
+		<h2>You're out of money! Want another $100?</h2>
+		<button id="reupBtn" ng-click="reset()">More money</button>
+	</div>
 </div>

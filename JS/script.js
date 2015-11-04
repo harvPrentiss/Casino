@@ -98,12 +98,16 @@ casinoApp.controller('contactController', function($scope){
 //Blackjack Controller
 casinoApp.controller('blackjackController',  function($scope, DeckFactory){
 
-	$scope.message = 'Talk to me';
+	$scope.result = '';
+	$scope.gameOver = false;
 	$scope.pageClass = 'page-blackjack';
 	$scope.Deck = DeckFactory;
 	$scope.deckPosition = 0;
 	$scope.playerCards = [];
 	$scope.dealerCards = [];
+	$scope.roundOver = true;
+	$scope.playerMoney = 100;
+	$scope.playerBet = 10;
 
 	$scope.shuffle = function(){
 		var shuffledDeck = new Array(52);
@@ -123,6 +127,50 @@ casinoApp.controller('blackjackController',  function($scope, DeckFactory){
 		$scope.dealerCards = [];
 	};
 
+	$scope.playerHandTotal = function(){
+		var total = 0;
+		for(var i = 0; i < $scope.playerCards.length; i++){
+			total += $scope.playerCards[i].rank.secondaryValue;
+		}
+		if(total > 21){
+			var j = 0;
+			while(j < $scope.playerCards.length && total > 21){
+				if($scope.playerCards[j].rank.label == 'A'){
+					total -= 10;
+				}
+				j++;
+			}
+		}
+		if(total > 21){
+			$scope.result = "You busted";
+			if($scope.playerMoney > 0){
+				$scope.roundOver = true;
+			}
+			else{
+				$scope.gameOver = true;
+				$scope.roundOver = true;
+			}	
+		}
+		return total;
+	};
+
+	$scope.dealerHandTotal = function(){
+		var total = 0;
+		for(var i = 0; i < $scope.dealerCards.length; i++){
+			total += $scope.dealerCards[i].rank.secondaryValue;
+		}
+		if(total > 21){
+			var j = 0;
+			while(j < $scope.dealerCards.length && total > 21){
+				if($scope.dealerCards[j].rank.label == 'A'){
+					total -= 10;
+				}
+				j++;
+			}
+		}
+		return total;
+	};
+
 	$scope.dealCard = function(target, dealerTurn){
 		if(target == "p"){
 			if($scope.playerCards.length < 5){
@@ -138,6 +186,8 @@ casinoApp.controller('blackjackController',  function($scope, DeckFactory){
 	};
 
 	$scope.dealHand = function(){
+		$scope.roundOver = false;
+		$scope.result ='';
 		$scope.shuffle();
 		$scope.clearCards();
 		$scope.deckPosition = 0;
@@ -146,9 +196,44 @@ casinoApp.controller('blackjackController',  function($scope, DeckFactory){
 		$scope.dealCard("p", false);
 		$scope.dealCard("c", false);
 	};
-	
-	$scope.dealHand();
 
-	console.log($scope.playerCards);
+	$scope.hit = function(){
+		$scope.dealCard("p", false);
+	};
 
+	$scope.stay = function(){
+		while($scope.dealerHandTotal() < $scope.playerHandTotal() && $scope.dealerHandTotal() <= 21){
+			$scope.dealCard("c", true);
+		}
+		if($scope.dealerHandTotal() > 21){
+			$scope.result = "Dealer busted. You win " + $scope.playerBet;
+			$scope.playerMoney += $scope.playerBet * 2;
+		}
+		else if($scope.dealerHandTotal() == $scope.playerHandTotal()){
+			$scope.result = "It is a draw.";
+		}
+		else{
+			$scope.result = "You lose";
+		}
+		if($scope.playerMoney > 0){
+			$scope.roundOver = true;
+		}
+		else{
+			$scope.gameOver = true;
+			$scope.roundOver = true;
+		}		
+	};
+
+	$scope.bet = function(){
+		if($scope.playerMoney - $scope.playerBet >= 0){
+			$scope.playerMoney -= $scope.playerBet;
+			$scope.dealHand();
+		}
+	};
+
+	$scope.reset = function(){
+		$scope.playerMoney = 100;
+		$scope.clearCards();
+		$scope.gameOver = false;
+	};
 });
